@@ -7,16 +7,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.o7planning.yiji2.R;
+import org.o7planning.yiji2.model.Lesson;
 
 public class ReadyFragment extends Fragment {
 
     Button btnReady, btnNotReady;
+    int id;
 
 
     @Override
@@ -40,8 +43,10 @@ public class ReadyFragment extends Fragment {
         btnReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("idddddddddd",String.valueOf(DetailLessonFragment.lesson.getId()));
+                ExamFragment fragment= new ExamFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_main, new ExamFragment());
+                transaction.replace(R.id.content_main, fragment);
                 transaction.commit();
             }
         });

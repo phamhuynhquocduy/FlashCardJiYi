@@ -61,7 +61,7 @@ public class LessonFragment extends Fragment {
         Cursor cursor = database.rawQuery("SELECT * FROM lesson ",new String[]{});
         arrayList.clear();
         while (cursor.moveToNext()){
-            Lesson lesson = new Lesson(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getBlob(3),cursor.getInt(4));
+            Lesson lesson = new Lesson(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getBlob(3),cursor.getInt(4),cursor.getInt(5));
             arrayList.add(lesson);
         }
     }

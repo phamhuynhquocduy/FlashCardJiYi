@@ -1,10 +1,14 @@
 package org.o7planning.yiji2.ui;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -16,9 +20,12 @@ import android.widget.TextView;
 import org.o7planning.yiji2.R;
 import org.o7planning.yiji2.model.Exam;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ResultFragment extends Fragment {
     Button bntBack;
     TextView textView, textViewReview;
+    public SQLiteDatabase sqLiteDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,9 +61,16 @@ public class ResultFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ((AppCompatActivity)getContext()).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 transaction.replace(R.id.content_main, new HomeFragment());
                 transaction.commit();
             }
         });
+        //Update so lan truy cap
+        ContentValues cv = new ContentValues();
+        cv.put("learn",String.valueOf(DetailLessonFragment.lesson.getCountLearn()+1));
+        sqLiteDatabase = getContext().openOrCreateDatabase("yiji2.db",MODE_PRIVATE,null);
+        sqLiteDatabase.update("lesson", cv, "id = ?", new String[]{String.valueOf(DetailLessonFragment.lesson.getId())});
+
     }
 }

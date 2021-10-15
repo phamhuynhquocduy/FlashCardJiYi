@@ -77,8 +77,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/custom_button_oval_yellow"
         android:text="Quay lại"

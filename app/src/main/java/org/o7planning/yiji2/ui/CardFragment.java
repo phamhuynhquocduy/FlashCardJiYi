@@ -46,7 +46,7 @@ public class CardFragment extends Fragment {
     SQLiteDatabase database;
     Button button;
     ArrayList<Card> arrayList = new ArrayList<>();
-    int TAG =1, tmp =0;
+    int TAG =1, tmp =0, id;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +81,8 @@ public class CardFragment extends Fragment {
                 //Khi nhan lat the
                 if(TAG==1){
                     TAG=0;
-                    imggif.setVisibility(View.GONE);
-                    imgbtn.setVisibility(View.GONE);
+                    imggif.setVisibility(View.VISIBLE);
+                    imgbtn.setVisibility(View.VISIBLE);
                     imginterpret.setVisibility(View.VISIBLE);
                     button.setText("Thẻ tiếp theo");
                 }
@@ -99,17 +99,19 @@ public class CardFragment extends Fragment {
                     }
                     //Khi het card thi chuyen qua man hinh on tap
                     else{
+                        ReadyFragment fragment= new ReadyFragment();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null);
-                        transaction.replace(R.id.content_main, new ReadyFragment());
+                        transaction.replace(R.id.content_main, fragment);
                         transaction.commit();
                     }
                 }
             }
         });
     }
+    //Bo data tu SQlite vao ArrayList
     void card()  {
             database = getContext().openOrCreateDatabase("yiji2.db",MODE_PRIVATE,null);
-            Cursor cursor = database.rawQuery("SELECT * FROM card ",new String[]{});
+            Cursor cursor = database.rawQuery("SELECT * FROM card WHERE idlesson =? ",new String[]{String.valueOf(DetailLessonFragment.lesson.getId())});
             while (cursor.moveToNext()){
                 Card card = new Card(cursor.getInt(0),cursor.getBlob(1),cursor.getBlob(2),cursor.getString(3),cursor.getBlob(4),cursor.getInt(5),cursor.getInt(6));
                 arrayList.add(card);
@@ -123,6 +125,9 @@ public class CardFragment extends Fragment {
         //Hinh anh
         Bitmap image = BitmapFactory.decodeByteArray(card.getImage(),0,card.getImage().length);
         img.setImageBitmap(image);
+        //Phat am thanh lan dau
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),getActivity().getResources().getIdentifier(card.getMusic(), "raw", getActivity().getPackageName()));
+        mediaPlayer.start();
         //Hinh anh giai nghia
         Bitmap interpret = BitmapFactory.decodeByteArray(card.getInterpret(),0,card.getInterpret().length);
         imginterpret.setImageBitmap(interpret);

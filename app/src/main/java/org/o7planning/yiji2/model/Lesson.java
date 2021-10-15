@@ -1,19 +1,32 @@
 package org.o7planning.yiji2.model;
 
-public class Lesson {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class Lesson implements Serializable {
 
     int id;
     String name;
     int sothe;
     byte[] image;
     int idbook;
+    int countLearn;
 
-    public Lesson(int id, String name, int sothe, byte[] image, int idbook) {
+    public Lesson(int id, String name, int sothe, byte[] image, int idbook, int countLearn) {
         this.id = id;
         this.name = name;
         this.sothe = sothe;
         this.image = image;
         this.idbook = idbook;
+        this.countLearn = countLearn;
+    }
+
+    public int getCountLearn() {
+        return countLearn;
+    }
+
+    public void setCountLearn(int countLearn) {
+        this.countLearn = countLearn;
     }
 
     public byte[] getImage() {

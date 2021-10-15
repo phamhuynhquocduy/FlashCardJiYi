@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.bumptech.glide.load.engine.Resource;
 
 import org.o7planning.yiji2.R;
 import org.o7planning.yiji2.model.Exam;
+import org.o7planning.yiji2.model.Lesson;
 
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class ExamFragment extends Fragment {
     SQLiteDatabase database;
     ArrayList<Exam> arrayList= new ArrayList<Exam>();
     SoundPool soundPool;
-    int count=1;
+    int count=1,id;
     int[] sm; ;
     public static int total,correct;
 
@@ -190,7 +192,6 @@ public class ExamFragment extends Fragment {
                     }
                 }
             });
-
         }else if(exam.getType()==2){
             //An di hinh va nut am thanh
             imgQuestion.setVisibility(View.VISIBLE);
@@ -202,6 +203,61 @@ public class ExamFragment extends Fragment {
             btnA.setText(exam.getAnswerA());
             btnB.setText(exam.getAnswerB());
             btnC.setText(exam.getAnswerC());
+            //Nhan nut tra loi cau hoi
+            btnA.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==1){
+                        btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        total++;
+                        correct++;
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnA.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==2){
+                            btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
+            btnB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==2){
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        correct++;
+                        btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnB.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==3){
+                            btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
+            btnC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==3){
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        correct++;
+                        btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnC.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==2){
+                            btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
             //Hinh anh
             Bitmap image = BitmapFactory.decodeByteArray(exam.getImage(),0,exam.getImage().length);
             imgQuestion.setImageBitmap(image);
@@ -223,13 +279,73 @@ public class ExamFragment extends Fragment {
                 MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),getActivity().getResources().getIdentifier(exam.getMusic(), "raw", getActivity().getPackageName()));
                 mediaPlayer.start();
             }
-        });
+            });
+            //Nhan nut tra loi cau hoi
+            btnA.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==1){
+                        btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        total++;
+                        correct++;
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnA.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==2){
+                            btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
+            btnB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==2){
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        correct++;
+                        btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnB.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==3){
+                            btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
+            btnC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(exam.getCorrect()==3){
+                        soundPool.play(sm[0], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        correct++;
+                        btnC.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }else{
+                        soundPool.play(sm[1], 1, 1, 1, 0, (float) 0.7);
+                        total++;
+                        btnC.setBackgroundResource(R.drawable.custom_button_answer_wrong);
+                        if(exam.getCorrect()==2){
+                            btnB.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                        }else btnA.setBackgroundResource(R.drawable.custom_button_answer_correct);
+                    }
+                }
+            });
         }
     }
 
     void exam(){
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            id = getArguments().getInt("idlesson");
+        }
         database = getContext().openOrCreateDatabase("yiji2.db",MODE_PRIVATE,null);
-        Cursor cursor = database.rawQuery("SELECT * FROM exam ",new String[]{});
+        Log.d("idddddddddd",String.valueOf(DetailLessonFragment.lesson.getId()));
+        Cursor cursor = database.rawQuery("SELECT * FROM exam WHERE idlesson=? ",new String[]{String.valueOf(DetailLessonFragment.lesson.getId())});
         while (cursor.moveToNext()){
             Exam exam = new Exam(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getBlob(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),
                     cursor.getInt(7),cursor.getInt(8),cursor.getString(9),cursor.getInt(10));
