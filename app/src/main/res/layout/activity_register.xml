@@ -13,10 +13,9 @@
         android:layout_height="200dp"
         android:src="@drawable/logo">
     </ImageView>
-
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edittext_name"
-        android:hint="Họ va tên"
+        android:hint="Họ và tên"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -25,6 +24,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:maxLength="20"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@android:color/darker_gray"
         android:inputType="textPersonName"
         android:singleLine="true" />
 
@@ -37,6 +38,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:backgroundTint="@color/black"
         android:hint="Email"
         android:maxLength="50"
         android:singleLine="true" />
@@ -50,19 +53,23 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:backgroundTint="@color/black"
         android:hint="Mật Khẩu"
         android:inputType="textPassword" />
     <EditText
-    android:id="@+id/edittext_repass"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="22dp"
-    android:layout_marginLeft="32dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="32dp"
-    android:layout_marginRight="32dp"
-    android:hint="Nhập lại mật Khẩu"
-    android:inputType="textPassword" />
+        android:id="@+id/edittext_repass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="Nhập lại mật Khẩu"
+        android:inputType="textPassword"
+        android:textColorHint="@android:color/darker_gray"
+        android:backgroundTint="@color/black"    />
 
 
     <androidx.appcompat.widget.AppCompatButton

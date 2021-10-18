@@ -20,8 +20,10 @@ import android.content.Intent;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.o7planning.yiji2.ui.ChangePassFragment;
 import org.o7planning.yiji2.ui.HistoryFragment;
 import org.o7planning.yiji2.ui.HomeFragment;
+import org.o7planning.yiji2.ui.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     int HOME_FRAGMENT =1;
     int HISTORY_FRAGMENT =2;
+    int PROFILE_FRAGMENT=3;
+    int PASS_FRAGMENT=4;
     private  int currentFragment=1;
 
     @Override
@@ -74,6 +78,18 @@ public class MainActivity extends AppCompatActivity {
                             currentFragment= HISTORY_FRAGMENT;
                         }
                         break;
+                    case R.id.nav_change_pass:
+                        if(currentFragment!=PASS_FRAGMENT){
+                            replaceFragment(new ChangePassFragment());
+                            currentFragment= PASS_FRAGMENT;
+                        }
+                        break;
+                    case R.id.nav_user:
+                        if(currentFragment!=PROFILE_FRAGMENT){
+                            replaceFragment(new ProfileFragment());
+                            currentFragment= PROFILE_FRAGMENT;
+                        }
+                        break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -89,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
+
     }
     @Override
     public void onBackPressed() {
